@@ -13,7 +13,8 @@ namespace DomainValidations.Entities
             return domainValidation
                     .AddValidation(string.IsNullOrWhiteSpace(Nome), NotificationLevel.DomainError, this, "Nome inválido")
                     .AddValidation(string.IsNullOrWhiteSpace(Sobrenome), NotificationLevel.DomainError, this, "Sobrenome inválido")
-                    .AddValidation(Celular == null || !Celular.IsValid(), NotificationLevel.DomainError, this, Celular?.Messages.FirstOrDefault()?.Message)
+                    .AddValidation(Celular == null, NotificationLevel.DomainError, this, "Celular inválido")
+                    .AddValidation(Celular != null && !Celular.IsValid(), NotificationLevel.DomainError, this, Celular?.Messages.FirstOrDefault()?.Message)
                     .GetMessages();
         }
     }
